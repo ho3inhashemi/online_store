@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::prefix('/auth')->group(function(){
+    Route::post('/register' , [UsersController::class , 'register'])->name('auth-register');
+    Route::post('/login' , [UsersController::class , 'login'])->name('auth-login');
+});
+
+
+Route::group(['middleware' => ['auth:sanctum']] , function(){
+    Route::post('/logout' , [UsersController::class , 'logOut'])->name('auth-logout');
 });
