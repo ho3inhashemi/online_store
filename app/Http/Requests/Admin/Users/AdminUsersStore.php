@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class LoginRequest extends FormRequest
+class AdminUsersStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +21,11 @@ class LoginRequest extends FormRequest
      */
     public function rules(): array
     {
-
         return [
-            'email' => ['required', Rule::exists('users' , 'email')],
-            'password' => 'required'
+            'name' => 'required|string|min:2|max:80',
+            'family_name' => 'required|string|min:2|max:80',
+            'email' => 'required|unique:users|email:rfc,dns',
+            'password' => 'required|min:6',
         ];
     }
 }
