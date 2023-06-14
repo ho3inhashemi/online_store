@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\UsersController as AdminUsersController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +28,12 @@ Route::group(['prefix' => '/auth'] ,function(){
 
 Route::group(['middleware' => ['auth:sanctum'] , 'prefix' => '/admin'] , function(){
     Route::prefix('users')->group(function(){
-        Route::post('/store' , [AdminUsersController::class , 'store'])->name('admin-users-store');
+        Route::post('/' , [AdminUsersController::class , 'store'])->name('admin-users-store');
         Route::get('/' , [AdminUsersController::class , 'index'])->name('admin-users-index');
         Route::get('/{user}' , [AdminUsersController::class , 'show'])->name('admin-users-show');
         Route::put('/{user}' , [AdminUsersController::class , 'update'])->name('admin-users-update');
         Route::delete('/' , [AdminUsersController::class , 'destroy'])->name('admin-users-destroy');
+        Route::patch('/block' , [AdminUsersController::class , 'block'])->name('admin-users-block');
+        Route::patch('/unblock' , [AdminUsersController::class , 'unblock'])->name('admin-users-unblock');
     });
 });

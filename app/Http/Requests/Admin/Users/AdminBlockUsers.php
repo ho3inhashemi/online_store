@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Admin\Users;
 
+use App\Models\User;
+use App\Rules\ArrayMembersExist;
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminUsersStore extends FormRequest
+class AdminBlockUsers extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +24,7 @@ class AdminUsersStore extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:2|max:80',
-            'family_name' => 'required|string|min:2|max:80',
-            'email' => 'required|unique:users|email:rfc,dns',
-            'password' => 'required|min:6',
-            'mobile' => ['required', 'regex:/^(\+44|0)7\d{9}$/'],
+            'user_ids' => ['required','array',new ArrayMembersExist(User::class)]
         ];
     }
 }

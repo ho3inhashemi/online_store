@@ -25,8 +25,16 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|min:2|max:80',
             'family_name' => 'required|string|min:2|max:80',
             'email' => 'required|unique:users|email:rfc,dns',
+            'mobile' => ['required', 'regex:/^(\+44|0)7\d{9}$/'],
             'password' => 'required|min:6|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation' => 'min:6',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'mobile.regex' => 'The phone number must be a valid UK mobile number.',
         ];
     }
 }

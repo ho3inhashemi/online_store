@@ -18,7 +18,10 @@ class UserResource extends JsonResource
             'id' => $this->id ,
             'name' => $this->name ,
             'family_name' => $this->family_name ,
-            'email' => $this->email
+            'email' => $this->email ,
+            'mobile' => $this->mobile ,
+            'status' => $this->status ? 'active' : 'in_active' ,
+            'full_name' => $this->full_name
         ];
     }
 }

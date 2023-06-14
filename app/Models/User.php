@@ -22,6 +22,8 @@ class User extends Authenticatable
         'family_name',
         'email',
         'password',
+        'mobile',
+        'status',
     ];
 
     /**
@@ -48,4 +50,17 @@ class User extends Authenticatable
     {
         return $this->name.' '.$this->family_name;
     }
+
+
+    public function scopeActive($query)
+    {
+        return $query->where('status' , 1);
+    }
+
+
+    public function scopeInActive($query)
+    {
+        return $query->where('status' , 0);
+    }
+
 }
